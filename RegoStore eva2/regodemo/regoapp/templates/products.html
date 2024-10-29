@@ -1,0 +1,41 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Productos</h1>
+    <div class="row">
+        {% for product in products %}  <!-- Itera sobre la lista de productos -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <!-- Muestra la imagen del producto -->
+                <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <!-- Muestra el nombre del producto -->
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <!-- Muestra el precio del producto en negrita y color azul -->
+                    <p class="card-text text-primary fw-bold">${{ product.price }}</p>
+                    <!-- Formulario para agregar el producto al carrito -->
+                    <form class="add-to-cart-form" action="{% url 'add_to_cart' product.id %}" method="post">
+                        {% csrf_token %}  <!-- Protección CSRF para seguridad -->
+                        <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    // JavaScript para mostrar una alerta al añadir un producto al carrito
+    document.addEventListener('DOMContentLoaded', function() {
+        const forms = document.querySelectorAll('.add-to-cart-form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();  // Evita que el formulario se envíe de inmediato
+                alert('Producto añadido al carrito con éxito');
+                form.submit();  // Envía el formulario tras mostrar el mensaje
+            });
+        });
+    });
+</script>
+{% endblock %}

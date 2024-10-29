@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Sección principal de bienvenida con mensaje hero y opciones de inicio/registro -->
+<section class="hero-section text-center">
+    <div class="container">
+        <h1 class="hero-title">Bienvenido a RegoStore</h1>
+        <p class="lead mb-4">Descubre las últimas tendencias en moda urbana</p>
+        
+        <!-- Muestra los botones de login y registro solo si el usuario no está autenticado -->
+        {% if not user.is_authenticated %}
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{% url 'login' %}" class="btn btn-light btn-lg">Iniciar Sesión</a>
+                <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg">Registrarse</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Sección de características destacadas con envío gratis, calidad garantizada y soporte -->
+<section class="container mb-5">
+    <div class="row g-4">
+        <!-- Característica de envío gratuito -->
+        <div class="col-md-4">
+            <div class="card feature-card">
+                <h3>Envío Gratis</h3>
+                <p>En compras superiores a $50.000</p>
+            </div>
+        </div>
+        
+        <!-- Característica de calidad garantizada -->
+        <div class="col-md-4">
+            <div class="card feature-card">
+                <h3>Calidad Garantizada</h3>
+                <p>Los mejores materiales del mercado</p>
+            </div>
+        </div>
+        
+        <!-- Característica de soporte 24/7 -->
+        <div class="col-md-4">
+            <div class="card feature-card">
+                <h3>Soporte 24/7</h3>
+                <p>Estamos aquí para ayudarte</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
